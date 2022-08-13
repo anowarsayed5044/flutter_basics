@@ -1,11 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basics/quiz.dart';
+import 'package:flutter_basics/result.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+
+  static const _questions = [
+    {
+      "question": "What's Your favorite Colour?",
+      "answers": [
+        {"text": "Black", "score": 10},
+        {"text": "Red", "score": 5},
+        {"text": "Green", "score": 3},
+        {"text": "White", "score": 1},
+        ]
+    },
+    {
+      "question": "What's Your favorite Animal?",
+      "answers": [
+        {"text": "Rabbit", "score": 3},
+        {"text": "Snake", "score": 10},
+        {"text": "Elephant", "score": 5},
+        {"text": "Lion", "score": 1},
+      ]
+    },
+    {
+      "question": "What's Your favorite Place?",
+      "answers": [
+        {"text": "Hills", "score": 1},
+        {"text": "Sea Beach", "score": 5},
+        {"text": "Desert", "score": 3},
+        {"text": "City", "score": 10},
+      ]
+    },
+  ];
+
+  void answerQuestion() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,28 +59,13 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text("My First App"),
         ),
-        body: const Text("Alhamdulillah!"),
+        body: _questionIndex < _questions.length
+            ? Quiz(questionIndex: _questionIndex, answerQuestion: answerQuestion, questions: _questions)
+            : const Result(),
       ),
     );
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import 'package:flutter/material.dart';
 //
